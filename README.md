@@ -10,7 +10,7 @@ Salmonella enterica is a highly diverse Gram negative bacterial species. A few S
 
 ### Task 2: Pipelining
 
-* creating the conda environment
+#### creating the conda environment
  * environment.yml witth content:
 ``` 
 channels:
