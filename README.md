@@ -1,4 +1,4 @@
-#Genomics pipeline for reproducible data analysis of Salmonella enterica genomes - Bioinformatics Practical Course
+# Genomics pipeline for reproducible data analysis of Salmonella enterica genomes - Bioinformatics Practical Course
 
 [TOC]
 ## Table of Contents
