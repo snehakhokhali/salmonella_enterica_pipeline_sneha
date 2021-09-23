@@ -2,7 +2,7 @@ channels:
         - bioconda
         - conda-forge
 dependencies:
-        - snakemake-minimal=6.8.0
-        - sra-tools=2.11.0
-        - SPAdes=3.15.3
+        - snakemake-minimal
+        - sra-tools
+        - SPAdes
 
