@@ -7,7 +7,7 @@
 Salmonella enterica is a highly diverse Gram negative bacterial species. A few S.enterica serovars includongy Typhi, Paratyphi A, B or C are highly adapted to the human host as their reservoir. They are the casuative agents of enteric fever(also known as typhoid fever or paratyphoid fever). Enteric fever is an invasive, life-threatening, systemic disease resulting more deaths. It is endemic in developing world in regions that lack water nad adequate sanitation, faciliating the spread of these pathogens via the faecal-oral route. 
 
 Source: https://www.frontiersin.org/articles/10.3389/fmicb.2014.00391/full
-### Task 2: Pipelining
+### Task 2 and 3: Pipelining and Improving the assembly
 
 #### creating the conda environment
  * environment.yml witth content:
@@ -107,3 +107,12 @@ rule Spades:
 * And start the screen session: screen -S salmonella-pipeline
 * activate conda environment: conda activate salmonella-pipeline
 * run the pipeline: snakemake --cores 4
+* interrupt the execution of pipeline: Ctrl+C
+* unlock the screen: snakemake --unlock
+* start with only one barcode 
+* and k-value ["auto","31","55"] was used and only auto of k_value of 1 barcode was pushed to git. I delete the spades_assembled and short-reads of logs. Now only k_auto of 1 barcode was created??????
+* attach (re-enter) session: screen -x or screen -r salmonella-pipeline
+* run pipeline: snakemake --cores 4
+* detach session when the analysis is finish: press Ctrl+a, d
+
+
