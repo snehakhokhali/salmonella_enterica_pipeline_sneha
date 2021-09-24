@@ -56,7 +56,8 @@ rule download_srr:
 * Output files are: {barcode}_1.fastq, {barcode}_2.fastq 
 * to specify the output directory, -O parameter is used.
 * Threads: 6
-##Day 5:
+ 
+## Day 5:
 **SPAdes assembly**
 * config.yaml
 ```
