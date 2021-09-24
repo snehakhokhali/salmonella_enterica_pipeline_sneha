@@ -47,11 +47,12 @@ rule download_srr:
       "/data/short-reads/{barcode}_2.fastq"
     threads: 6
     shell:
-      """fasterq-dump {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
+      """fastq-dump --split-files {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
 
 ```
-* fasterq-dump helps to download the data from SRA and split the files automatically into forward and reverse reads. 
+* fasterq-dump helps to download the data from SRA and split the paired files automatically into forward and reverse reads. 
 * configfile is "config.yaml" which contains the barcode (SRR1965341). And the config file is used in input for both {barcode}_1 and {barcode}_2 of rule all.
+* to split and save the files into two separate files, --split-files parameter is used.
 * Output files are: {barcode}_1.fastq, {barcode}_2.fastq 
 * to specify the output directory, -O parameter is used.
 
