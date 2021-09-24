@@ -9,6 +9,6 @@ rule download_srr:
       "/data/short-reads/{barcode}_2.fastq"
     threads: 6
     shell:
-      """fasterq-dump {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
+      """fastq-dump --split-files  {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
 
     
