@@ -10,9 +10,9 @@ rule download_srr:
       "/data/short-reads/{barcode}_2.fastq"
     log: 
       "logs/short-reads/{barcode}.log"
-    threads: 6
+    threads: 4
     shell:
-      """fastq-dump --split-files  {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
+      """fastq-dump --split-files  {wildcards.barcode} -O /data/short-reads/"""
 
 rule Spades:
     input:
@@ -24,6 +24,6 @@ rule Spades:
       "logs/Spades_assembled/{barcode}/k_{kvalue}/spades.log"
     params:
       kmer = "{kvalue}"
-    threads: 5
+    threads: 4
     shell:
       """spades.py -k {params.kmer} -t {threads} --pe1-1 {input.forward_p} --pe1-2 {input.reverse_p} -o /data/spades_assembled/{wildcards.barcode}/k_{wildcards.kvalue}"""
