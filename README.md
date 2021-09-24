@@ -102,3 +102,8 @@ rule Spades:
 * threads: 4
 * the assembly should be run with two different values for k (the k-mer size), therefore producing one contigs file per k value
 * Note: -e parameter is not used in fastq-dump.(failure execution because it doesnot contain -e parameter for threads)
+* ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added
+* And ` kvalue: ["auto","31","55"]` were added.
+* And start the screen session: screen -S salmonella-pipeline
+* activate conda environment: conda activate salmonella-pipeline
+* run the pipeline: snakemake --cores 4
