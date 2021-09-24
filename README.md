@@ -56,7 +56,7 @@ rule download_srr:
 * Output files are: {barcode}_1.fastq, {barcode}_2.fastq 
 * to specify the output directory, -O parameter is used.
 * Threads: 6
-
+##Day 5:
 **SPAdes assembly**
 * config.yaml
 ```
@@ -114,5 +114,4 @@ rule Spades:
 * attach (re-enter) session: screen -x or screen -r salmonella-pipeline
 * run pipeline: snakemake --cores 4
 * detach session when the analysis is finish: press Ctrl+a, d
-
 
