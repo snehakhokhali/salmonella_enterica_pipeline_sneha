@@ -17,6 +17,8 @@ channels:
         - conda-forge
 dependencies:
         - snakemake-minimal
+        - sra-tools
+        - SPAdes
 ```
  * conda environment 
 ```
@@ -30,4 +32,27 @@ conda activate salmonella-pipeline
 ```
 snakemake --help
 ```
+
+### Using sra-tools to download the sequencing data with the barcode (SRR1965341) from the SRA 
+* first rule of sra-tools download
+```
+configfile: "config.yaml"
+rule all:
+    input:
+      expand("/data/short-reads/{barcode}_1.fastq",barcode=config["barcode"]),
+      expand("/data/short-reads/{barcode}_2.fastq",barcode=config["barcode"])
+rule download_srr:
+    output:
+      "/data/short-reads/{barcode}_1.fastq",
+      "/data/short-reads/{barcode}_2.fastq"
+    threads: 6
+    shell:
+      """fasterq-dump {wildcards.barcode} -O /data/short-reads/ -e {threads}"""
+
+```
+* fasterq-dump helps to download the data from SRA and split the files automatically into forward and reverse reads. 
+* configfile is "config.yaml" which contains the barcode (SRR1965341). And the config file is used in input for both {barcode}_1 and {barcode}_2 of rule all.
+* Output files are: {barcode}_1.fastq, {barcode}_2.fastq 
+* to specify the output directory, -O parameter is used.
+
 
