@@ -121,7 +121,7 @@ rule Spades:
 * run pipeline: snakemake --cores 4
 * detach session when the analysis is finish: press Ctrl+a, d
 
-## Day 6
+## Day 6:Monday(27.09.2021)
 
 **Task 6: Adapter trimming**
 * add cutadapt in environment.yml for trimming:
