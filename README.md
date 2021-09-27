@@ -110,9 +110,9 @@ rule Spades:
 * Note: -e parameter is not used in fastq-dump.(failure execution because it doesnot contain -e parameter for threads)
 * ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added
 * And ` kvalue: ["auto","31","55"]` were added.
-* And start the screen session: screen -S salmonella-pipeline
-* activate conda environment: conda activate salmonella-pipeline
-* run the pipeline: snakemake --cores 4
+* And start the screen session:` screen -S salmonella-pipeline`
+* activate conda environment:` conda activate salmonella-pipeline`
+* run the pipeline:` snakemake --cores 4`
 * interrupt the execution of pipeline: Ctrl+C
 * unlock the screen: snakemake --unlock
 * start with only one barcode 
@@ -174,10 +174,10 @@ rule spades_assembler:
 * input files from trimming: from /data/short-reads/{barcode}_1.fastq and from /data/short-reads/{barcode}_2.fastq
 * output files: "/data/trimmed/{barcode}_1.fastq" and "/data/trimmed/{barcode}_2.fastq"
 * parameter:` -a PATH`: adapter.fasta forward file and ` -A PATH`: adapter.fasta reverse file
-* -o: output of forward fasta file and -p: output of reverse fasta file
-* -j 0 : automatically selects the available threads 
+* `-o`: output of forward fasta file and `-p`: output of reverse fasta file
+* `-j 0` : automatically selects the available threads 
 
 **Task 7**
 * ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added in config.yaml
-* And start the screen session: screen -S salmonella-pipeline 
-* run the pipeline: snakemake --cores 4 
+* And start the screen session:` screen -S salmonella-pipeline `
+* run the pipeline:` snakemake --cores 4 `
