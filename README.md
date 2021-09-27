@@ -121,7 +121,7 @@ rule Spades:
 * run pipeline: snakemake --cores 4
 * detach session when the analysis is finish: press Ctrl+a, d
 
-##Day 6
+## Day 6
 
 **Task 6: Adapter trimming**
 * add cutadapt in environment.yml for trimming:
@@ -170,10 +170,10 @@ rule spades_assembler:
 
 ```
 * rule adapter_trimming and spades_assembler were added beneath the rules of spades. Changed the barcode of rule of spades into {barcode}_untrimmed to specify the wildcards.
-* expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]) was added in rule of all. 
+* `expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])` was added in rule of all. 
 * input files from trimming: from /data/short-reads/{barcode}_1.fastq and from /data/short-reads/{barcode}_2.fastq
 * output files: "/data/trimmed/{barcode}_1.fastq" and "/data/trimmed/{barcode}_2.fastq"
-* parameter: -a PATH: adapter.fasta forward file and -A PATH: adapter.fasta reverse file
+* parameter:` -a PATH`: adapter.fasta forward file and ` -A PATH`: adapter.fasta reverse file
 * -o: output of forward fasta file and -p: output of reverse fasta file
 * -j 0 : automatically selects the available threads 
 
