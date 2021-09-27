@@ -5,7 +5,7 @@ rule all:
       #expand("/data/short-reads/{barcode}_2.fastq",barcode=config["barcode"])
       #expand("/data/trimmed/{barcode}_1.fastq",barcode=config["barcode"]),
       #expand("/data/trimmed/{barcode}_2.fastq",barcode=config["barcode"])
-      #expand("/data/spades_assembled/{barcode}/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])
+      #expand("/data/spades_assembled/{barcode}_untrimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])
       expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])
 rule download_srr:
     output:
