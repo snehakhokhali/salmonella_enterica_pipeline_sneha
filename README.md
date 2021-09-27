@@ -101,6 +101,11 @@ rule Spades:
 * output files are /data/spades_assembled/{barcode}/k_31/contigs.fasta and /data/spades_assembled/{barcode}/k_55/contigs.fasta
 * parameter are k-value ["31","55"]
 * threads: 4
+* parameter --pe1-1 PATH is for path to forward reads
+* parameter --pe1-2 PATH is  for path to reverse reads
+* -k INT is for k-values 
+* -t is for number of threads
+* -o is for output directory. 
 * the assembly should be run with two different values for k (the k-mer size), therefore producing one contigs file per k value
 * Note: -e parameter is not used in fastq-dump.(failure execution because it doesnot contain -e parameter for threads)
 * ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added
@@ -116,3 +121,62 @@ rule Spades:
 * run pipeline: snakemake --cores 4
 * detach session when the analysis is finish: press Ctrl+a, d
 
+##Day 6:
+**Task 6: Adapter trimming**
+* add cutadapt in environment.yml for trimming:
+```
+channels:
+        - bioconda
+        - conda-forge
+dependencies:
+        - snakemake-minimal=6.8.0
+        - sra-tools=2.11.0
+        - SPAdes=3.15.3
+        - cutadapt=3.4
+```
+* install cutadapt automatically: conda env update --file environment.yml --prune
+* activate conda environment: conda activate salmonella-pipeline
+* snakefile
+```
+expand("/data/trimmed/{barcode}_1.fastq",barcode=config["barcode"]),
+expand("/data/trimmed/{barcode}_2.fastq",barcode=config["barcode"])
+```
+* These are added in the rule of all to trim the barcode with the help pf adapter. 
+ 
+```
+rule adapter_trimming:
+    input:
+      "/data/short-reads/{barcode}_1.fastq",
+      "/data/short-reads/{barcode}_2.fastq"
+    output:
+      "/data/trimmed/{barcode}_1.fastq", 
+      "/data/trimmed/{barcode}_2.fastq" 
+    threads: 4
+    shell:
+      "cutadapt -a file:adapter_1.fasta -A file:adapter_2.fasta -o /data/trimmed/{wildcards.barcode}_1.fastq -p /data/trimmed/{wildcards.barcode}_2.fastq "
+      "/data/short-reads/{wildcards.barcode}_1.fastq /data/short-reads/{wildcards.barcode}_2.fastq -j 0"
+
+rule spades_assembler:
+    input:
+      left="/data/trimmed/{barcode}_1.fastq",
+      right="/data/trimmed/{barcode}_2.fastq"
+    output:
+      "/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta"
+    threads: 4
+    shell:
+      "spades.py --pe1-1 {input.left} --pe1-2 {input.right} "
+      "-o /data/spades_assembled/{wildcards.barcode}_trimmed/k_{wildcards.kvalue} -k {wildcards.kvalue} -t 4"
+
+```
+* rule adapter_trimming and spades_assembler were added beneath the rules of spades. Changed the barcode of rule of spades into {barcode}_untrimmed to specify the wildcards.
+* expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]) was added in rule of all. 
+* input files from trimming: from /data/short-reads/{barcode}_1.fastq and from /data/short-reads/{barcode}_2.fastq
+* output files: "/data/trimmed/{barcode}_1.fastq" and "/data/trimmed/{barcode}_2.fastq"
+* parameter: -a PATH: adapter.fasta forward file and -A PATH: adapter.fasta reverse file
+* -o: output of forward fasta file and -p: output of reverse fasta file
+* -j 0 : automatically selects the available threads 
+
+**Task 7**
+* ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added in config.yaml
+* And start the screen session: screen -S salmonella-pipeline 
+* run the pipeline: snakemake --cores 4 
