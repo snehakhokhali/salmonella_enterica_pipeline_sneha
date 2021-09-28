@@ -190,6 +190,11 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
 - if the contigs files exists, the assembly was completed. It was shown like below as a result. And every assembly of trimmed and untrimmed of every barcode with every parameters were existed.
 ```
 -rw-r--r-- 1 root root 5086604 Sep 27 15:38 /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta 
+-rw-r--r-- 1 root root 5067565 Sep 27 15:54 /data/spades_assembled/SRR1965341_trimmed/k_55/contigs.fasta 
+-rw-r--r-- 1 root root 5067136 Sep 27 15:22 /data/spades_assembled/SRR1965341_trimmed/k_auto/contigs.fasta
+-rw-r--r-- 1 root root 5153904 Sep 24 13:31 /data/spades_assembled/SRR1965341_untrimmed/k_31/contigs.fasta 
+-rw-r--r-- 1 root root 5085537 Sep 24 14:16 /data/spades_assembled/SRR1965341_untrimmed/k_55/contigs.fasta 
+-rw-r--r-- 1 root root 5085101 Sep 24 18:21 /data/spades_assembled/SRR1965341_untrimmed/k_auto/contigs.fasta 
 ```
 
 
