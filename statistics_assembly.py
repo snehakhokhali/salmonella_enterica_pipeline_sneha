@@ -1,6 +1,13 @@
 from Bio import SeqIO
 import sys
 
+LISTAveragecontigs=[]
+LISTtotalcontigs=[]
+LISTshortestcontigs=[]
+LISTlongestcontigs=[]
+LISTN50 =[]
+LISTBP300N50=[]
+
 #first input has to be config.fasta file
 file1 = sys.argv[1]
 
@@ -47,6 +54,18 @@ for number in archives:
         num300 += 1
         numb300 += contigs_above300[num300]
     contigs_above300N50 = contigs_above300[num300]
-    
-print("Total no. of contigs",Numcontigs)
-print("Average contigs:",Averagecontigs)
+
+    LISTAveragecontigs.append(Averagecontigs)
+    LISTtotalcontigs.append(Numbercontigs)
+    LISTshortestcontigs.append(shortestcontigs)
+    LISTlongestcontigs.append(longestcontigs)
+    LISTN50.append(N50contigs)
+    LISTBP300N50.append(contigs_above300N50)
+
+
+print("Total no. of contigs",LISTtotalcontigs)
+print("Average contigs:",LISTAveragecontigs)
+print("shortest contigs:", LISTshortestcontigs)
+print("longest contigs:",LISTlongestcontigs)
+print("N50 of all contigs:", LISTN50)
+print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
