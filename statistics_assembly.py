@@ -77,13 +77,3 @@ for inputpath in snakemake.input:
     print("N50 of all contigs:", LISTN50)
     print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
 
-    with open(snakemake.input[2]) as handle:
-        for record in SeqIO.parse(handle, "fastq"):
-            forwardtotallength_untrimmed += 1
-            fwdNumberUn += int(record.description.split()[2].split("=")[1])
-    fwdAverageUn = forwardtotallength_untrimmed/fwdNumberUn
-
-    with open(snakemake.input[2]) as handle:
-        for record in SeqIO.parse(handle, "fastq"):
-            reversetotallength_untrimmed += 1
-            revNumberUn += int(record.description.split()[2].split("=")[1])
