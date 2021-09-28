@@ -200,7 +200,7 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
 ```
 
  **Task 4: Assembly statistics**
-*  creating biopython script to collect the following statistics about the read data assemblies:
+  creating biopython script to collect the following statistics about the read data assemblies:
  * average read length
  * average contig length
  * total number of contigs
