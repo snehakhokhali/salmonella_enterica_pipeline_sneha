@@ -1,5 +1,6 @@
 from Bio import SeqIO
-import sys
+from shutil import copyfile
+import os
 
 LISTAveragecontigs=[]
 LISTtotalcontigs=[]
@@ -7,73 +8,89 @@ LISTshortestcontigs=[]
 LISTlongestcontigs=[]
 LISTN50 =[]
 LISTBP300N50=[]
-LISTAverageforwardreads=[]
-LISTAveragereversereads=[]
-
+pathList= []
 for inputpath in snakemake.input:
+    pathList.append(inputpath)
+    shortestcontigs = 100000000
+    longestcontigs = 0
+    Numbercontigs = 0
+    Totallengthcontigs = 0
+    Totallength300contigs = 0
 
-    #first input has to be config.fasta file
-    file1 = snakemake.input[0]
-    untrimmed=list(SeqIO.parse(file1, "fasta"))
-    file2= snakemake.input[1]
-    trimmed=list(SeqIO.parse(file2, "fasta"))
+    for record in SeqIO.parse(inputpath, "fasta"):
+        Numbercontigs += 1
+        num = len(record)
+        Totallengthcontigs += num
+        if (num > 300):
+            Totallength300contigs += num
+        if (num < shortestcontigs):
+            shortestcontigs = num
+        if (num > longestcontigs):
+            longestcontigs = num
 
-    archives = [untrimmed, trimmed]
+    Averagecontigs = Totallengthcontigs/Numbercontigs
 
-    Averagecontigs= 0
-# total length of contigs, average contig length, shortest contigs and longest contigs
-    for number in archives:
-        Numbercontigs= len(number)
-        Totallengthcontigs=0
-        Totallength300contigs = 0
-        contigslength = []
-        shortestcontigs= len(number[0])
-        longestcontigs = len(number[0])
-        contigs_above300 = []
-        for record in number:
-            contigslength.append(len(record))
-            Totallengthcontigs += len(record)
-            if len(record) < shortestcontigs:
-                shortestcontigs = len(record)
-            if len(record) > longestcontigs:
-                longestcontigs = len(record)
-            if len(record) > 300:
-                contigs_above300.append(len(record))
-                Totallength300contigs += len(record)
+    N50 = 0
+    N50_sum = 0
 
-        Averagecontigs = Totallengthcontigs/Numbercontigs
+    N50_BP300 = 0
+    N50_sum_BP300 = 0
 
-
-        # N50 of all contigs
-        contigslength.sort()
-        numb = contigslength[0]
-        num = 0
-        while numb < (Totallengthcontigs/2):
-            num += 1
-            numb += contigslength[num]
-        N50contigs = contigslength[num]
-
-        #N50 of all the contigs longer than 300 bp
-        contigs_above300.sort()
-        numb300 = contigs_above300[0]
-        num300 = 0
-        while numb300 < (Totallength300contigs/2):
-            num300 += 1
-            numb300 += contigs_above300[num300]
-        contigs_above300N50 = contigs_above300[num300]
-
-        LISTAveragecontigs.append(Averagecontigs)
-        LISTtotalcontigs.append(Numbercontigs)
-        LISTshortestcontigs.append(shortestcontigs)
-        LISTlongestcontigs.append(longestcontigs)
-        LISTN50.append(N50contigs)
-        LISTBP300N50.append(contigs_above300N50)
+    for record in SeqIO.parse(inputpath, "fasta"):
+        num = len(record)
+        if (N50_sum < Totallengthcontigs/2):
+            N50_sum += num
+            if (N50_sum >= Totallengthcontigs/2):
+                N50 = num
+        if (N50_sum_BP300 < Totallength300contigs/2):
+            N50_sum_BP300 += num
+            if (N50_sum_BP300 >= Totallength300contigs/2):
+                N50_BP300 = num
 
 
-    print("Total no. of contigs",LISTtotalcontigs)
-    print("Average contigs:",LISTAveragecontigs)
-    print("shortest contigs:", LISTshortestcontigs)
-    print("longest contigs:",LISTlongestcontigs)
-    print("N50 of all contigs:", LISTN50)
-    print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
 
+
+    LISTAveragecontigs.append(Averagecontigs)
+    LISTtotalcontigs.append(Numbercontigs)
+    LISTshortestcontigs.append(shortestcontigs)
+    LISTlongestcontigs.append(longestcontigs)
+    LISTN50.append(N50)
+    LISTBP300N50.append(N50_BP300)
+
+
+print("Total no. of contigs",LISTtotalcontigs)
+print("Average contigs:",LISTAveragecontigs)
+print("shortest contigs:", LISTshortestcontigs)
+print("longest contigs:",LISTlongestcontigs)
+print("N50 of all contigs:", LISTN50)
+print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
+
+BESTN50 = lISTN50.index(max(LISTN50))
+bestpath = pathList[BESTN50]
+
+copypath = "/data/bestAssembly/" + str(snakemake.wildcards)
+
+os.makedirs(copypath, exist_ok = True)
+copypath = copypath + "/contigs.fasta"
+copyfile(bestpath, copypath)
+
+with open(snakemake.output[0], "w") as result:
+    result.write("best assembly is in :" + bestpath)
+    result.write("\nshortest contig:")
+    for out in LISTshortestcontigs:
+        result.write(str(out)+"\t")
+    result.write("\nlongest contig:")
+    for out in LISTlongestcontigs:
+        result.write(str(out)+"\t")
+    result.write("\nnumber of contigs: ")
+    for out in LISTtotalcontigs:
+        result.write(str(out) + "\t")
+    result.write ("\navg contig length; ")
+    for out in LISTAveragecontigs:
+        result.write(str(out)+"\t")
+    result.write("\nN50 of all contigs: ")
+    for out in LISTN50:
+        result.write(str(out)+"\t")
+    result.write("\nN50 of contigs longer than 300 bp:")
+    for out in LISTBP300N50:
+        result.write(str(out)+"\t")
