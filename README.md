@@ -124,6 +124,8 @@ rule Spades:
 ## Day 6:Monday(27.09.2021)
 
 **Task 6: Adapter trimming**
+* adapter. fasta was available on Teams
+* adapter_1.fasta and adapter_2.fasta were created.
 * add cutadapt in environment.yml for trimming:
 ```
 channels:
@@ -196,8 +198,14 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
 -rw-r--r-- 1 root root 5085537 Sep 24 14:16 /data/spades_assembled/SRR1965341_untrimmed/k_55/contigs.fasta 
 -rw-r--r-- 1 root root 5085101 Sep 24 18:21 /data/spades_assembled/SRR1965341_untrimmed/k_auto/contigs.fasta 
 ```
-**Task 4: Assembly statistics**
 
+ **Task 4: Assembly statistics**
+*  creating biopython script to collect the following statistics about the read data assemblies:
+ * average read length
+ * average contig length
+ * total number of contigs
+ * shortest contigs
+ * longest contigs
+ * N50 of all contigs
+ * N50 of all contigs longer than 300 bp
 
-
-  
