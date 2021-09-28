@@ -181,3 +181,17 @@ rule spades_assembler:
 * ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added in config.yaml
 * And start the screen session:` screen -S salmonella-pipeline `
 * run the pipeline:` snakemake --cores 4 `
+
+## Day 7: Tuesday
+* To check if all the assemblies of trimmed and untrimmed with different parameters were completed or not, this command has been used.
+```
+ls -la /data/spades_assembled/*/*/contigs.fasta
+```
+- if the contigs files exists, the assembly was completed. It was shown like below as a result. And every assembly of trimmed and untrimmed of every barcode with every parameters were existed.
+```
+-rw-r--r-- 1 root root 5086604 Sep 27 15:38 /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta 
+```
+
+
+
+  
