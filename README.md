@@ -58,7 +58,8 @@ rule download_srr:
 * Threads: 6
  
 ## Day 5:
-**SPAdes assembly**
+
+### **SPAdes assembly**
 * config.yaml
 ```
 barcode:["SRR1965341"]
