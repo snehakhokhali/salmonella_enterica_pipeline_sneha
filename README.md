@@ -123,7 +123,7 @@ rule Spades:
 
 ## Day 6:Monday(27.09.2021)
 
-**Task 6: Adapter trimming**
+### **Task 6: Adapter trimming**
 * adapter. fasta was available on Teams
 * adapter_1.fasta and adapter_2.fasta were created.
 * add cutadapt in environment.yml for trimming:
@@ -179,7 +179,7 @@ rule spades_assembler:
 * `-o`: output of forward fasta file and `-p`: output of reverse fasta file
 * `-j 0` : automatically selects the available threads 
 
-**Task 7**
+### **Task 7**
 * ` Barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]` : 4 new Barcodes were added in config.yaml
 * And start the screen session:` screen -S salmonella-pipeline `
 * run the pipeline:` snakemake --cores 4 `
@@ -199,7 +199,7 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
 -rw-r--r-- 1 root root 5085101 Sep 24 18:21 /data/spades_assembled/SRR1965341_untrimmed/k_auto/contigs.fasta 
 ```
 
- **Task 4: Assembly statistics**
+###  **Task 4: Assembly statistics**
 *  creating biopython script to collect the following statistics about the read data assemblies:
    * average read length
    * average contig length
