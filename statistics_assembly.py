@@ -2,13 +2,13 @@ from Bio import SeqIO
 from shutil import copyfile
 import os
 
-LISTAveragecontigs=[]
-LISTtotalcontigs=[]
-LISTshortestcontigs=[]
-LISTlongestcontigs=[]
-LISTN50 =[]
-LISTBP300N50=[]
-pathList= []
+LISTAveragecontigs=[]  #average contig length
+LISTtotalcontigs=[]    #total number of contigs
+LISTshortestcontigs=[] #shortest contigs
+LISTlongestcontigs=[]  #longest contigs
+LISTN50 =[]            #N50 contigs
+LISTBP300N50=[]        #N50 of all contigs longer than 300 bp
+pathList= []           # list with input paths
 for inputpath in snakemake.input:
     pathList.append(inputpath)
     shortestcontigs = 100000000
@@ -16,7 +16,7 @@ for inputpath in snakemake.input:
     Numbercontigs = 0
     Totallengthcontigs = 0
     Totallength300contigs = 0
-
+    #calculate average contig length, total number of contigs, shortest contigs and longest contigs
     for record in SeqIO.parse(inputpath, "fasta"):
         Numbercontigs += 1
         num = len(record)
@@ -35,21 +35,21 @@ for inputpath in snakemake.input:
 
     N50_BP300 = 0
     N50_sum_BP300 = 0
-
+    #calculate N50
     for record in SeqIO.parse(inputpath, "fasta"):
         num = len(record)
         if (N50_sum < Totallengthcontigs/2):
             N50_sum += num
             if (N50_sum >= Totallengthcontigs/2):
                 N50 = num
-        if (N50_sum_BP300 < Totallength300contigs/2):
+        if (N50_sum_BP300 < Totallength300contigs/2): #calculate N50 for contigs longer than 300 bp
             N50_sum_BP300 += num
             if (N50_sum_BP300 >= Totallength300contigs/2):
                 N50_BP300 = num
 
 
 
-
+    #append lists with calculated values
     LISTAveragecontigs.append(Averagecontigs)
     LISTtotalcontigs.append(Numbercontigs)
     LISTshortestcontigs.append(shortestcontigs)
@@ -65,15 +65,18 @@ print("longest contigs:",LISTlongestcontigs)
 print("N50 of all contigs:", LISTN50)
 print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
 
+#calculate best assembly
 BESTN50 = lISTN50.index(max(LISTN50))
 bestpath = pathList[BESTN50]
 
+#copy contig.fasta of best result into separate folder
 copypath = "/data/bestAssembly/" + str(snakemake.wildcards)
 
 os.makedirs(copypath, exist_ok = True)
 copypath = copypath + "/contigs.fasta"
 copyfile(bestpath, copypath)
 
+#create new file with overview of results
 with open(snakemake.output[0], "w") as result:
     result.write("best assembly is in :" + bestpath)
     result.write("\nshortest contig:")
