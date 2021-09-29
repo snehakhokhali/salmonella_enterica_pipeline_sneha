@@ -5,7 +5,7 @@ import seaborn as sns
 
 lengthcontigs = []
 with open(snakemake.input[0]) as handle:
-    for archive in SEQIO.parse(handle,"fasta"):
+    for archive in SeqIO.parse(handle,"fasta"):
         read = int(archive.id.split("_")[3])
         lengthcontigs.append(read)
 
