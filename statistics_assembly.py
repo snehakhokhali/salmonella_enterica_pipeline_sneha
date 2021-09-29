@@ -66,7 +66,7 @@ print("N50 of all contigs:", LISTN50)
 print("N50 of all contigs longer than 300 BP:", LISTBP300N50)
 
 #calculate best assembly
-BESTN50 = lISTN50.index(max(LISTN50))
+BESTN50 = LISTN50.index(max(LISTN50))
 bestpath = pathList[BESTN50]
 
 #copy contig.fasta of best result into separate folder
