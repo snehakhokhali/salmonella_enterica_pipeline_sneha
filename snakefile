@@ -4,9 +4,12 @@ rule all:
       #expand("/data/short-reads/{barcode}_1.fastq",barcode=config["barcode"]),
       #expand("/data/short-reads/{barcode}_2.fastq",barcode=config["barcode"])
       #expand("/data/trimmed/{barcode}_1.fastq",barcode=config["barcode"]),
-      #expand("/data/trimmed/{barcode}_2.fastq",barcode=config["barcode"])
-      #expand("/data/spades_assembled/{barcode}_untrimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])
-      expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"])
+      #expand("/data/trimmed/{barcode}_2.fastq",barcode=config["barcode"]),
+      #expand("/data/spades_assembled/{barcode}_untrimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]),
+      #expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]),
+      expand("statistics/statistics_{barcode}.txt",barcode=config["barcode"]),
+      expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
+
 rule download_srr:
     output:
       "/data/short-reads/{barcode}_1.fastq",
@@ -53,4 +56,15 @@ rule spades_assembler:
     shell:
       "spades.py --pe1-1 {input.left} --pe1-2 {input.right} "
       "-o /data/spades_assembled/{wildcards.barcode}_trimmed/k_{wildcards.kvalue} -k {wildcards.kvalue} -t 4"
+rule statistics:
+    input:
+      expand("/data/spades_assembled/{{barcode}}_trimmed/k_{kvalue}/contigs.fasta",kvalue=config["kvalue"]),
+      expand("/data/spades_assembled/{{barcode}}_untrimmed/k_{kvalue}/contigs.fasta",kvalue=config["kvalue"])
+    output:
+      "statistics/statistics_{barcode}.txt",
+      "/data/bestAssembly/{barcode}/contigs.fasta"
+    script: 
+      "statistics_assembly.py"
+
+
 
