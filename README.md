@@ -401,6 +401,7 @@ expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barc
 * need the contigs.fasta to do analysis
 ```
 assembly-stats -s /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta
+```
 
 ```
 /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta    total_length    4981681
