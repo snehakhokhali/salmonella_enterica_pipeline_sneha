@@ -219,7 +219,7 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
 * bioscript: `statistics_assembly.py`
 ```
 
-m Bio import SeqIO
+from Bio import SeqIO
 from shutil import copyfile
 import os
 import math
@@ -343,4 +343,47 @@ expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 *  
 ![dag](dag.svg)
 
- 
+* best evaluated assembly by N50 value is marked for further processing.
+### **Assembly statistics plots**
+* histogram of contig lengths for single assemblies
+  * **installation of matplotlib in conda environment**
+    * include `matplotlib=3.4.3` to  `environment.yml` file under dependencies.
+    * update conda environment:` conda env update --file environment.yaml --prune`
+    * check installation: `conda list`
+ * bioscript: histogram_plot.py
+```
+import matplotlib.pyplot as plt
+from Bio import SeqIO
+import pandas as pd
+import seaborn as sns
+
+lengthcontigs = []
+with open(snakemake.input[0]) as handle:
+    for archive in SeqIO.parse(handle,"fasta"):
+        read = int(archive.id.split("_")[3])
+        lengthcontigs.append(read)
+
+plot=pd.DataFrame(lengthcontigs, columns = ["lengthcontigs"])
+histog = sns.histplot(data=plot, x="lengthcontigs", bins=50)
+histog.set(xlabel= "length of contigs")
+histog.set(ylabel = "Number of contigs")
+histog.set(title ="histogram of contig length")
+plt.yscale("log")
+plt.savefig(snakemake.output[0])
+```
+* The bioscript is integrated into snakefile by adding the new rule 
+```
+rule histogram_plot:
+    input:
+      "/data/spades_assembled/{barcode}_{adapter}/k_{kvalue}/contigs.fasta"
+    output:
+      "plots/histogram/{barcode}_{adapter}_k_{kvalue}.png"
+    threads: 4
+    script:
+      "histogram_plot.py"
+```
+* The command line as mentioned below was added in the rule of all. 
+```
+expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
+```
+![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
