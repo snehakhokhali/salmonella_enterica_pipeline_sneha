@@ -1,4 +1,6 @@
 configfile: "config.yaml"
+ADAPTER = ["untrimmed","trimmed"]
+
 rule all:
     input:
       #expand("/data/short-reads/{barcode}_1.fastq",barcode=config["barcode"]),
@@ -7,9 +9,9 @@ rule all:
       #expand("/data/trimmed/{barcode}_2.fastq",barcode=config["barcode"]),
       #expand("/data/spades_assembled/{barcode}_untrimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]),
       #expand("/data/spades_assembled/{barcode}_trimmed/k_{kvalue}/contigs.fasta",barcode=config["barcode"],kvalue=config["kvalue"]),
-      expand("statistics/statistics_{barcode}.txt",barcode=config["barcode"]),
-      expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
-
+      #expand("statistics/statistics_{barcode}.txt",barcode=config["barcode"]),
+      #expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"]),
+      expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
 rule download_srr:
     output:
       "/data/short-reads/{barcode}_1.fastq",
@@ -66,5 +68,13 @@ rule statistics:
     script: 
       "statistics_assembly.py"
 
+rule histogram_plot:
+    input:
+      "/data/spades_assembled/{barcode}_{adapter}/k_{kvalue}/contigs.fasta"
+    output:
+      "plots/histogram/{barcode}_{adapter}_k_{kvalue}.png"
+    threads: 4
+    script:
+      "histogram_plot.py"
 
 
