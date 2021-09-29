@@ -1,6 +1,7 @@
 from Bio import SeqIO
 from shutil import copyfile
 import os
+import math
 
 LISTAveragecontigs=[]  #average contig length
 LISTtotalcontigs=[]    #total number of contigs
