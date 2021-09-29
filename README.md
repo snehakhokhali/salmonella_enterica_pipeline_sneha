@@ -320,6 +320,9 @@ with open(snakemake.output[0], "w") as result:
     for out in LISTBP300N50:
         result.write(str(out)+"\t")
 ```
+## Day 8(Wednesday):
+
+### **Assembly statistics**(continued)
 * The biopython script was integrated by adding a new rule named rule statistics into the snakefile.
 ```
 rule statistics:
@@ -337,7 +340,7 @@ expand("statistics/statistics_{barcode}.txt",barcode=config["barcode"]),
 expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 ```
 * These are added in the rule of all.
-* 
+*  
 ![dag](dag.svg)
 
  
