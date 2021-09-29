@@ -344,6 +344,10 @@ expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 ![dag](dag.svg)
 
 * best evaluated assembly by N50 value is marked for further processing.
+* Best assembly:First choose the assembly with highest N50 value, if they are same choose the assembly with the longest contig
+N50 for all contigs and N50 for contigs larger than 300kb do not really differ for assemblies with overall small contigs. -> Reason: By sorting from big to small, only the length of the whole assembly differs.
+ The N50 for contigs larger 300kb can be equal or larger compared to the N50 for all contigs. The N50 is a very important measure to assess the quality of an assembly and thus is used for this evaluation. Since about half of the genome sequence can be covered by contigs at least of the N50 contig size, it is preferable to have high N50 values.
+
 ### **Assembly statistics plots**
 * histogram of contig lengths for single assemblies
   * **installation of matplotlib in conda environment**
