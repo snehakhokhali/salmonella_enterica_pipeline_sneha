@@ -336,4 +336,8 @@ rule statistics:
 expand("statistics/statistics_{barcode}.txt",barcode=config["barcode"]),
 expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 ```
-* These are added in the rule of all. 
+* These are added in the rule of all.
+* 
+![dag](dag.svg)
+
+ 
