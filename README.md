@@ -392,5 +392,5 @@ expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barc
 ```
 ![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
 
-* The plots as shown above were created for every assemmbly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
+* The plots as shown above were created for every assembly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
 
