@@ -387,3 +387,6 @@ rule histogram_plot:
 expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
 ```
 ![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
+
+* The plots as shown above were created for every assemmbly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
+
