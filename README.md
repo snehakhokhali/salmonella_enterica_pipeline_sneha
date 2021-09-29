@@ -348,7 +348,7 @@ expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 N50 for all contigs and N50 for contigs larger than 300kb do not really differ for assemblies with overall small contigs. -> Reason: By sorting from big to small, only the length of the whole assembly differs.
  The N50 for contigs larger 300kb can be equal or larger compared to the N50 for all contigs. The N50 is a very important measure to assess the quality of an assembly and thus is used for this evaluation. Since about half of the genome sequence can be covered by contigs at least of the N50 contig size, it is preferable to have high N50 values.
 
-### **Assembly statistics plots**
+### **Task 5: Assembly statistics plots**
 * histogram of contig lengths for single assemblies
   * **installation of matplotlib in conda environment**
     * include `matplotlib=3.4.3` to  `environment.yml` file under dependencies.
