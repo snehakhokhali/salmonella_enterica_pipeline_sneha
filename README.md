@@ -391,7 +391,15 @@ rule histogram_plot:
 expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
 ```
 ![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
-[statistics](statistics/statistics_SRR1965341.txt)
+```
+best assembly is in :/data/spades_assembled/SRR1965341_trimmed/k_auto/contigs.fasta
+shortest contig:56	32	56	56	32	56	
+longest contig:322089	321983	322089	322089	321983	322089	
+number of contigs: 170	622	175	315	1492	321	
+avg contig length; 29283.141176470588	8009.13344051447	28447.85714285714	15843.787301587301	3363.1139410187666	15548.29906542056	
+N50 of all contigs: 147418	92982	110300	147418	96827	110300	
+N50 of contigs longer than 300 bp:147418	92982	110300	147418	103861	110300	
+```
 
 * The plots as shown above were created for every assembly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
 ### **Task 9**
