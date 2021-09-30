@@ -1,0 +1,10 @@
+stats for /data/bestAssembly/SRR1968189/contigs.fasta
+sum = 4965782, n = 236, ave = 21041.45, largest = 266422
+N50 = 96290, n = 19
+N60 = 77392, n = 25
+N70 = 58899, n = 32
+N80 = 41713, n = 42
+N90 = 27511, n = 57
+N100 = 56, n = 236
+N_count = 0
+Gaps = 0
