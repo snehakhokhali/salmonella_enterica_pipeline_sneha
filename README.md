@@ -391,7 +391,8 @@ rule histogram_plot:
 expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
 ```
 ![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
-![statistics](statistics/statistics_SRR1965341.txt)
+[statistics](statistics/statistics_SRR1965341.txt)
+
 * The plots as shown above were created for every assembly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
 ### **Task 9**
 * Use assembly-stats to get the statistics of the assemblies
