@@ -1,2 +1,4 @@
-barcode: ["SRR1965341"]
-kvalue: ["31","55"]
+barcode: ["SRR1965341","SRR1968189","SRR7828287","SRR2075991","SRR5584993"]
+kvalue: ["auto","31","55"]
+long_barcode: ["SRR8902592"]
+
