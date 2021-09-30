@@ -417,4 +417,80 @@ assembly-stats -s /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta
 ```
 stats_SRR1965341_trimmed_k_31.txt      stats_SRR1968189_trimmed_k_31.txt      stats_SRR2075991_trimmed_k_31.txt      stats_SRR5584993_trimmed_k_31.txt      stats_SRR7828287_trimmed_k_31.txt                      stats_SRR1965341_trimmed_k_55.txt      stats_SRR1968189_trimmed_k_55.txt      stats_SRR2075991_trimmed_k_55.txt      stats_SRR5584993_trimmed_k_55.txt      stats_SRR7828287_trimmed_k_55.txt                      stats_SRR1965341_trimmed_k_auto.txt    stats_SRR1968189_trimmed_k_auto.txt    stats_SRR2075991_trimmed_k_auto.txt    stats_SRR5584993_trimmed_k_auto.txt    stats_SRR7828287_trimmed_k_auto.txt                    stats_SRR1965341_untrimmed_k_31.txt    stats_SRR1968189_untrimmed_k_31.txt    stats_SRR2075991_untrimmed_k_31.txt    stats_SRR5584993_untrimmed_k_31.txt    stats_SRR7828287_untrimmed_k_31.txt                    stats_SRR1965341_untrimmed_k_55.txt    stats_SRR1968189_untrimmed_k_55.txt    stats_SRR2075991_untrimmed_k_55.txt    stats_SRR5584993_untrimmed_k_55.txt    stats_SRR7828287_untrimmed_k_55.txt                    stats_SRR1965341_untrimmed_k_auto.txt  stats_SRR1968189_untrimmed_k_auto.txt  stats_SRR2075991_untrimmed_k_auto.txt  stats_SRR5584993_untrimmed_k_auto.txt  stats_SRR7828287_untrimmed_k_auto.txt  
 ```
- 
+### Day 9: Thursday
+## **Task 8**
+* include `minimap2` and `miniasm` to  `environment.yml` file under dependencies. 
+* update conda environment:` conda env update --file environment.yaml --prune`
+* check installation: `conda list`
+* add the barcode SRR8902592 in config.yaml
+```
+long_barcode:["SRR8902592"]
+```
+* add the rule of download_srr_long in snakefile
+```
+rule download_srr_long:
+    output:
+      "/data/long-reads/{long_barcode}.fastq"
+    threads: 4
+    log:
+      "logs/long-reads/{long_barcode}.log"
+    shell:
+      """(fastq-dump {wildcards.long_barcode} -O /data/long-reads/) > {log}"""
+```
+* add these in rule of all
+```
+expand("/data/long-reads/{long_barcode}.fastq",long_barcode=config["long_barcode"])
+
+```
+* add the rule of minimap2 in snakefile
+```
+rule minimap2:
+    input:
+      "/data/long-reads/{long_barcode}.fastq"
+    output:
+      "/data/long_read_assembly/{long_barcode}.paf.gz"
+    log:
+      "logs/minimap2/{long_barcode}.log"
+    shell:
+      """minimap2 -x ava-ont -t8 {input} {input} | gzip -1 > {output}"""
+```
+* add these in rule of all
+```
+expand("/data/long_read_assembly/{long_barcode}.paf.gz",long_barcode=config["long_barcode"]),
+```
+* add the rule of miniasm in snakefile
+```
+rule miniasm:
+    input:
+      paf="/data/long_read_assembly/{long_barcode}.paf.gz",
+      fastq="/data/long-reads/{long_barcode}.fastq"
+    output:
+      "/data/long_read_assembly/{long_barcode}.gfa"
+    log:
+      "logs/miniasm/{long_barcode}.log"
+    shell:
+      """miniasm -f {input.fastq} {input.paf} > {output}"""
+```
+* add these in rule of all.
+```
+expand("/data/long_read_assembly/{long_barcode}.gfa",long_barcode=config["long_barcode"])
+```
+* add the rule of gfa to fasta to convert the gfa file to fasta file in snakefile
+```
+rule gfa_to_fasta:
+    input:
+      "/data/long_read_assembly/{long_barcode}.gfa"
+    output:
+      "/data/long_read_assembly/{long_barcode}/contigs.fasta"
+    log:
+      "logs/fasta/{long_barcode}.log"
+    shell:
+      """awk '/^S/{{print \">\"$2"\\n\"$3}}' {input} | fold > {output}"""
+```
+* add these in rule of all.
+```
+expand("/data/long_read_assembly/{long_barcode}/contigs.fasta",long_barcode=config["long_barcode"])
+```
+
+
+
