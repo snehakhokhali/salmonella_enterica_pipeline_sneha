@@ -15,7 +15,9 @@ rule all:
       #expand("/data/long-reads/{long_barcode}.fastq",long_barcode=config["long_barcode"])
       expand("/data/long_read_assembly/{long_barcode}.paf.gz",long_barcode=config["long_barcode"]),
       expand("/data/long_read_assembly/{long_barcode}.gfa",long_barcode=config["long_barcode"]),
-      expand("/data/long_read_assembly/{long_barcode}/contigs.fasta",long_barcode=config["long_barcode"])
+      expand("/data/long_read_assembly/{long_barcode}/contigs.fasta",long_barcode=config["long_barcode"]),
+      expand("assembly-statistik/short-reads/{barcode}.txt",barcode=config["barcode"]),
+      expand("assembly-statistik/long-reads/{long_barcode}.txt",long_barcode=config["long_barcode"])
 rule download_srr:
     output:
       "/data/short-reads/{barcode}_1.fastq",
@@ -61,6 +63,21 @@ rule gfa_to_fasta:
       "logs/fasta/{long_barcode}.log"
     shell:
       """awk '/^S/{{print \">\"$2"\\n\"$3}}' {input} | fold > {output}"""
+rule assembly_stats_short:
+    input:
+      short_in="/data/bestAssembly/{barcode}/contigs.fasta"
+    output:
+      short_out="assembly-statistik/short-reads/{barcode}.txt"
+    shell:
+      """assembly-stats {input.short_in} > {output.short_out}"""
+rule assembly_stats_long:
+    input: 
+      long_in="/data/long_read_assembly/{long_barcode}/contigs.fasta"
+    output:
+      long_out="assembly-statistik/long-reads/{long_barcode}.txt"
+    shell:
+      """assembly-stats {input.long_in} > {output.long_out}"""
+
 rule Spades:
     input:
       forward_p = "/data/short-reads/{barcode}_1.fastq",
