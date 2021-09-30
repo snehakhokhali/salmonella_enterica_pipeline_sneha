@@ -417,8 +417,8 @@ assembly-stats -s /data/spades_assembled/SRR1965341_trimmed/k_31/contigs.fasta
 ```
 stats_SRR1965341_trimmed_k_31.txt      stats_SRR1968189_trimmed_k_31.txt      stats_SRR2075991_trimmed_k_31.txt      stats_SRR5584993_trimmed_k_31.txt      stats_SRR7828287_trimmed_k_31.txt                      stats_SRR1965341_trimmed_k_55.txt      stats_SRR1968189_trimmed_k_55.txt      stats_SRR2075991_trimmed_k_55.txt      stats_SRR5584993_trimmed_k_55.txt      stats_SRR7828287_trimmed_k_55.txt                      stats_SRR1965341_trimmed_k_auto.txt    stats_SRR1968189_trimmed_k_auto.txt    stats_SRR2075991_trimmed_k_auto.txt    stats_SRR5584993_trimmed_k_auto.txt    stats_SRR7828287_trimmed_k_auto.txt                    stats_SRR1965341_untrimmed_k_31.txt    stats_SRR1968189_untrimmed_k_31.txt    stats_SRR2075991_untrimmed_k_31.txt    stats_SRR5584993_untrimmed_k_31.txt    stats_SRR7828287_untrimmed_k_31.txt                    stats_SRR1965341_untrimmed_k_55.txt    stats_SRR1968189_untrimmed_k_55.txt    stats_SRR2075991_untrimmed_k_55.txt    stats_SRR5584993_untrimmed_k_55.txt    stats_SRR7828287_untrimmed_k_55.txt                    stats_SRR1965341_untrimmed_k_auto.txt  stats_SRR1968189_untrimmed_k_auto.txt  stats_SRR2075991_untrimmed_k_auto.txt  stats_SRR5584993_untrimmed_k_auto.txt  stats_SRR7828287_untrimmed_k_auto.txt  
 ```
-### Day 9: Thursday
-## **Task 8**
+## Day 9: Thursday
+### **Task 8: Long read sequencing**
 * include `minimap2` and `miniasm` to  `environment.yml` file under dependencies. 
 * update conda environment:` conda env update --file environment.yaml --prune`
 * check installation: `conda list`
@@ -490,6 +490,36 @@ rule gfa_to_fasta:
 * add these in rule of all.
 ```
 expand("/data/long_read_assembly/{long_barcode}/contigs.fasta",long_barcode=config["long_barcode"])
+```
+## **Task 9: assembly-stats**
+* add the rule assembly_stats_short to get the assembly statistics of short reads.
+```
+rule assembly_stats_short:
+    input:
+      short_in="/data/bestAssembly/{barcode}/contigs.fasta"
+    output:
+      short_out="assembly-statistik/short-reads/{barcode}.txt"
+    shell:
+      """assembly-stats {input.short_in} > {output.short_out}"""
+```
+* add the command in the rule of all.
+```
+expand("assembly-statistik/short-reads/{barcode}.txt",barcode=config["barcode"])
+```
+* add the rule assembly_stats_long to get the assembly statistics of long reads.
+```
+rule assembly_stats_long:
+    input: 
+      long_in="/data/long_read_assembly/{long_barcode}/contigs.fasta"
+    output:
+      long_out="assembly-statistik/long-reads/{long_barcode}.txt"
+    shell:
+      """assembly-stats {input.long_in} > {output.long_out}"""
+
+```
+* add the command in the rule of all.
+```
+expand("assembly-statistik/long-reads/{long_barcode}.txt",long_barcode=config["long_barcode"])
 ```
 
 
