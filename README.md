@@ -491,7 +491,7 @@ rule gfa_to_fasta:
 ```
 expand("/data/long_read_assembly/{long_barcode}/contigs.fasta",long_barcode=config["long_barcode"])
 ```
-## **Task 9: assembly-stats**
+### **Task 9: assembly-stats**
 * add the rule assembly_stats_short to get the assembly statistics of short reads.
 ```
 rule assembly_stats_short:
