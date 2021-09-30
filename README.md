@@ -347,7 +347,16 @@ expand("/data/bestAssembly/{barcode}/contigs.fasta",barcode=config["barcode"])
 * Best assembly:First choose the assembly with highest N50 value, if they are same choose the assembly with the longest contig.
 N50 for all contigs and N50 for contigs larger than 300kb do not really differ for assemblies with overall small contigs. -> Reason: By sorting from big to small, only the length of the whole assembly differs.
  The N50 for contigs larger 300kb can be equal or larger compared to the N50 for all contigs. The N50 is a very important measure to assess the quality of an assembly and thus is used for this evaluation. Since about half of the genome sequence can be covered by contigs at least of the N50 contig size, it is preferable to have high N50 values.
-
+```
+best assembly is in :/data/spades_assembled/SRR1965341_trimmed/k_auto/contigs.fasta
+shortest contig:56	32	56	56	32	56	
+longest contig:322089	321983	322089	322089	321983	322089	
+number of contigs: 170	622	175	315	1492	321	
+avg contig length; 29283.141176470588	8009.13344051447	28447.85714285714	15843.787301587301	3363.1139410187666	15548.29906542056	
+N50 of all contigs: 147418	92982	110300	147418	96827	110300	
+N50 of contigs longer than 300 bp:147418	92982	110300	147418	103861	110300	
+```
+* Best assembly of every barcode can be seen with statistics as shown above.
 ### **Task 5: Assembly statistics plots**
 * histogram of contig lengths for single assemblies
   * **installation of matplotlib in conda environment**
@@ -391,17 +400,7 @@ rule histogram_plot:
 expand("plots/histogram/{barcode}_{adapter}_k_{kvalue}.png",barcode=config["barcode"],kvalue=config["kvalue"],adapter=ADAPTER)
 ```
 ![histoplot](plots/histogram/SRR1965341_trimmed_k_31.png)
-```
-best assembly is in :/data/spades_assembled/SRR1965341_trimmed/k_auto/contigs.fasta
-shortest contig:56	32	56	56	32	56	
-longest contig:322089	321983	322089	322089	321983	322089	
-number of contigs: 170	622	175	315	1492	321	
-avg contig length; 29283.141176470588	8009.13344051447	28447.85714285714	15843.787301587301	3363.1139410187666	15548.29906542056	
-N50 of all contigs: 147418	92982	110300	147418	96827	110300	
-N50 of contigs longer than 300 bp:147418	92982	110300	147418	103861	110300	
-```
-
-* The plots as shown above were created for every assembly(trimmed and untrimmed) with different k values(auto, k_31, k_55).
+*  The plots as shown above were created for every assembly(trimmed and untrimmed) with different k values(auto, k_31, k_55)..
 ### **Task 9**
 * Use assembly-stats to get the statistics of the assemblies
 ```
