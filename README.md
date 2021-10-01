@@ -435,7 +435,7 @@ stats_SRR1965341_trimmed_k_31.txt      stats_SRR1968189_trimmed_k_31.txt      st
 ```
 long_barcode:["SRR8902592"]
 ```
-* add the rule of download_srr_long in snakefile
+* add the rule of download_srr_long in snakefile to download SRA and convert it to fastq file
 ```
 rule download_srr_long:
     output:
@@ -446,12 +446,12 @@ rule download_srr_long:
     shell:
       """(fastq-dump {wildcards.long_barcode} -O /data/long-reads/) > {log}"""
 ```
-* add these in rule of all
+* add these in rule of all 
 ```
 expand("/data/long-reads/{long_barcode}.fastq",long_barcode=config["long_barcode"])
 
 ```
-* add the rule of minimap2 in snakefile
+* add the rule of minimap2 in snakefile to compute the overlap of reads
 ```
 rule minimap2:
     input:
@@ -463,11 +463,12 @@ rule minimap2:
     shell:
       """minimap2 -x ava-ont -t8 {input} {input} | gzip -1 > {output}"""
 ```
+* parameter -x ava-ont for nanopore reads and -x ava-pb for PacBio reads
 * add these in rule of all
 ```
 expand("/data/long_read_assembly/{long_barcode}.paf.gz",long_barcode=config["long_barcode"]),
 ```
-* add the rule of miniasm in snakefile
+* add the rule of miniasm in snakefile to compute gfa using overlapped long reads using miniasm
 ```
 rule miniasm:
     input:
