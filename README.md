@@ -544,7 +544,6 @@ N100 = 56, n = 170
 N_count = 0
 Gaps = 0
 ```
-```
 * The result as .txt file of bestAssembly of long read barcode SRR8902592 as shoen below:
 ```
 stats for /data/long_read_assembly/SRR8902592/contigs.fasta
