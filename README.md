@@ -621,5 +621,5 @@ organism: Genus species strain                                                  
 
 ## Work
 * [x] Sheet 1: Task 1,2,3,6,7,8,9,10 completed fully
-* [] Sheet 1: Task 4 and Task 5 not fully completed 
+* []  Sheet 1: Task 4 and Task 5 not fully completed 
 * [x] Sheet 2: Task 1 
