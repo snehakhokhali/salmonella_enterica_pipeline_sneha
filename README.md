@@ -557,7 +557,6 @@ N100 = 3229, n = 148
 N_count = 0
 Gaps = 0
 ```
-
 ## Sheet 2: Comparative genomics
 ### Task 1: Genome annotation
 * install the conda environment with prokka and roary
