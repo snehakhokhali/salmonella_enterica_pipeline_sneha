@@ -531,6 +531,34 @@ rule assembly_stats_long:
 ```
 expand("assembly-statistik/long-reads/{long_barcode}.txt",long_barcode=config["long_barcode"])
 ```
+* The result as .txt file of bestAssembly of short-reads barcode SRR1965341 as shown below:
+```
+stats for /data/bestAssembly/SRR1965341/contigs.fasta
+sum = 4978134, n = 170, ave = 29283.14, largest = 322089
+N50 = 147418, n = 13
+N60 = 107509, n = 17
+N70 = 83945, n = 23
+N80 = 64964, n = 29
+N90 = 41750, n = 39
+N100 = 56, n = 170
+N_count = 0
+Gaps = 0
+```
+```
+* The result as .txt file of bestAssembly of long read barcode SRR8902592 as shoen below:
+```
+stats for /data/long_read_assembly/SRR8902592/contigs.fasta
+sum = 5984934, n = 148, ave = 40438.74, largest = 4870332
+N50 = 4870332, n = 1
+N60 = 4870332, n = 1
+N70 = 4870332, n = 1
+N80 = 4870332, n = 1
+N90 = 5347, n = 22
+N100 = 3229, n = 148
+N_count = 0
+Gaps = 0
+```
+
 ## Sheet 2: Comparative genomics
 ### Task 1: Genome annotation
 * install the conda environment with prokka and roary
