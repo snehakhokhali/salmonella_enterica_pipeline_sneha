@@ -107,7 +107,7 @@ rule Spades:
     shell:
       """spades.py -k {params.kmer} -t {threads} --pe1-1 {input.forward_p} --pe1-2 {input.reverse_p} -o /data/spades_assembled/{wildcards.barcode}/k_{wildcards.kvalue}"""
 ```
-* input files are from the output of rule download_srr, i.e SRR1965341_1. fastq and SRR1965341_2.fastq
+* nput files are from the output of rule download_srr, i.e SRR1965341_1. fastq and SRR1965341_2.fastq
 * output files are /data/spades_assembled/{barcode}/k_31/contigs.fasta and /data/spades_assembled/{barcode}/k_55/contigs.fasta
 * parameter are k-value ["31","55"]
 * threads: 4
@@ -621,4 +621,5 @@ organism: Genus species strain                                                  
 
 ## Work
 * [x] Sheet 1: Task 1,2,3,6,7,8,9,10 completed fully
-* [x] Sheet 1: Task 4 and Task 5 not fully completed 
+* [] Sheet 1: Task 4 and Task 5 not fully completed 
+* [x] Sheet 2: Task 1 
