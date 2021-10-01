@@ -607,6 +607,6 @@ organism: Genus species strain                                                  
 ```
 * install canu to correct long reads but rule of correct_long_reads isnot working well.
 * tried to build DAG of previous workflow but there is an error.
-# Building DAG of jobs...  
-# MissingRuleException: 
-# No rule to produce /data/long_read_assembly/SRR8902592/contigs.fasta (if you use input functions make sure that they don't raise unexpected exceptions). 
+> Building DAG of jobs...  
+> MissingRuleException: 
+> No rule to produce /data/long_read_assembly/SRR8902592/contigs.fasta (if you use input functions make sure that they don't raise unexpected exceptions). 
