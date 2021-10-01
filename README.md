@@ -217,7 +217,7 @@ ls -la /data/spades_assembled/*/*/contigs.fasta
   * check installation: `conda list`
 
 **Calculation of assembly statistics**
-* bioscript: `statistics_assembly.py`
+* bioscript: `statistics_assembly.py`(tried but couldnot create python script, so I have to take from others)
 ```
 
 from Bio import SeqIO
