@@ -609,4 +609,4 @@ organism: Genus species strain                                                  
 * tried to build DAG of previous workflow but there is an error.
 > Building DAG of jobs...  
 > MissingRuleException: 
-> No rule to produce /data/long_read_assembly/SRR8902592/contigs.fasta (if you use input functions make sure that they don't raise unexpected exceptions). 
+> No rule to produce /data/prokka/short-reads (if you use input functions make sure that they don't raise unexpected exceptions). 
