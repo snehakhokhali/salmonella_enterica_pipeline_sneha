@@ -620,5 +620,5 @@ organism: Genus species strain                                                  
 > No rule to produce /data/prokka/short-reads (if you use input functions make sure that they don't raise unexpected exceptions). 
 
 ## Work
-[x] Sheet 1: Task 1,2,3,6,7,8,9,10 completed fully
-[x] Sheet 1: Task 4 and Task 5 not fully completed 
+* [x] Sheet 1: Task 1,2,3,6,7,8,9,10 completed fully
+* [x] Sheet 1: Task 4 and Task 5 not fully completed 
