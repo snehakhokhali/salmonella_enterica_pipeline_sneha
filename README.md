@@ -8,6 +8,14 @@
 Salmonella enterica is a highly diverse Gram negative bacterial species. A few S.enterica serovars includongy Typhi, Paratyphi A, B or C are highly adapted to the human host as their reservoir. They are the casuative agents of enteric fever(also known as typhoid fever or paratyphoid fever). Enteric fever is an invasive, life-threatening, systemic disease resulting more deaths. It is endemic in developing world in regions that lack water nad adequate sanitation, faciliating the spread of these pathogens via the faecal-oral route. 
 
 Source: https://www.frontiersin.org/articles/10.3389/fmicb.2014.00391/full
+
+### Overview of workflow of short reads barcode
+
+![dag](dag.svg)
+
+### Overview of workflow of long read barcode
+![dag1](dag_long_read.svg)
+
 ### Task 2 and 3: Pipelining and Improving the assembly
 
 #### creating the conda environment
