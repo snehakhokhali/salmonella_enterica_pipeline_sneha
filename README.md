@@ -540,7 +540,7 @@ expand("assembly-statistik/long-reads/{long_barcode}.txt",long_barcode=config["l
 * `conda install -c bioconda roary``
 * `export PERL5LIB=$CONDA_PREFIX/lib/perl5/site_perl/5.22.0/`
 * `conda install -c bioconda perl-file-find-rule=0.34=2`
-* creating new snakemake file called 'Snakefile' and add the rule prokka_short and rule all as shown below along with configfile.
+* creating new snakemake file called 'Snakefile' and add the rule prokka_short and rule all as shown below along with configfile and bestAssembly as input.
 ```
 configfile: "config.yaml"
 rule all:
